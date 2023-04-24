@@ -1,0 +1,29 @@
+Sub ConvertTextToNumber()
+    Dim total As Double
+    total = 0
+    
+    Dim cell As Range
+    For Each cell In Range("A1:AP30")
+        If cell.Value = ("K L") Then
+            Dim mergedCells As Range
+            Set mergedCells = cell.MergeArea
+            
+            Dim valueToUse As Double
+            If mergedCells.Cells.Count = 10 Then
+                valueToUse = 20
+            ElseIf mergedCells.Cells.Count = 9 Then
+                valueToUse = 18
+            ElseIf mergedCells.Cells.Count = 8 Then
+                valueToUse = 16
+            'Add more conditions here for other sizes as needed
+            Else
+                'If the merged cells contain a different number of cells, use a default value of 1
+                valueToUse = 0
+            End If
+            
+            total = total + valueToUse
+        End If
+    Next cell
+    
+    Range("AR5").Value = total
+End Sub
